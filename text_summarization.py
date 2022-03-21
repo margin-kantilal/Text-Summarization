@@ -31,4 +31,18 @@ def sentence_similarity(sentence1, sentence2, stop_words=None):
  
     vector1 = [0] * len(all_words)
     vector2 = [0] * len(all_words)
+
+     # build the vector for the first sentence
+    for w in sentence1:
+        if w in stop_words:
+            continue
+        vector1[all_words.index(w)] += 1
+
+        # build the vector for the second sentence
+    for w in sentence2:
+        if w in stop_words:
+            continue
+        vector2[all_words.index(w)] += 1
+ 
+    return 1 - cosine_distance(vector1, vector2)
  
