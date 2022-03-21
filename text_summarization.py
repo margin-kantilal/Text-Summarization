@@ -18,3 +18,17 @@ def read_textfile(file_name):
     for sentence in text:
         sentences.append(sentence.replace("^[a-zA-Z0-9!@#$&()-`+,/\"]", " ").split(" ")) 
     return sentences
+
+#Finding similarities in the sentences and stopwords such as the etc....
+def sentence_similarity(sentence1, sentence2, stop_words=None):
+    if stop_words is None:
+        stop_words = [] #stopwords will be added on the empty array
+ 
+    sentence1 = [w.lower() for w in sentence1]
+    sentence2 = [w.lower() for w in sentence2]
+ 
+    all_words = list(set(sentence1 + sentence2)) #list will have all the words from sent1 and sent2
+ 
+    vector1 = [0] * len(all_words)
+    vector2 = [0] * len(all_words)
+ 
