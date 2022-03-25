@@ -50,6 +50,68 @@ from nltk.tokenize.punkt import PunktSentenceTokenizer
 
 from sklearn.feature_extraction.text import TfidfTransformer, CountVectorizer
 
+# ### 2.  Function to read the document from user
+# Supported formats: .txt, .pdf 
+# 
+# Input: Takes the name of the file as input. 
+# 
+# Output: Returns a string output containing the contents of the file.
+# first let's take the document as an input
+def readDoc():
+    name = input('Please input a file name: ') 
+    print('You have asked for the document {}'.format(name))
+
+    # now read the type of document
+    if name.lower().endswith('.txt'):
+        choice = 1
+    elif name.lower().endswith('.pdf'):
+        choice = 2
+    else:
+        choice = 3
+        # print(name)
+    print(choice)
+    # Case 1: if it is a .txt file
+        
+    if choice == 1:
+        f = open(name, 'r')
+        document = f.read()
+        f.close()
+            
+    # Case 2: if it is a .pdf file
+    elif choice == 2:
+        pdfFileObj = open(name, 'rb')
+        pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
+        pageObj = pdfReader.getPage(0)
+        document = pageObj.extractText()
+        pdfFileObj.close()
+    
+    # Case 3: none of the format
+    else:
+        print('Failed to load a valid file')
+        print('Returning an empty string')
+        document = ''
+    
+    print(type(document))
+    return document
+
+    # ### 3. Function to tokenize the document
+# Input: String of text document
+# 
+# Output: A list containing sentences as its elements
+
+# the function used for tokenizing the sentences
+# tokenization of a sentence: '''provided in cell() above'''
+
+def tokenize(document):
+    # We are tokenizing using the PunktSentenceTokenizer
+    # we call an instance of this class as sentence_tokenizer
+    doc_tokenizer = PunktSentenceTokenizer()
+    
+    # tokenize() method: takes our document as input and returns a list of all the sentences in the document
+    
+    # sentences is a list containing each sentence of the document as an element
+    sentences_list = doc_tokenizer.tokenize(document)
+    return sentences_list
 
 
 
