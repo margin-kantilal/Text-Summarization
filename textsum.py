@@ -278,3 +278,21 @@ else:
     sentence_list.append(sentence_array[0][1])
 
 model = sentence_list
+
+
+# ### 10. Writing the summary to a new file
+
+# print(sentence_list)
+summary = " ".join(str(x) for x in sentence_list)
+print(summary)
+# save the data in another file, names sum.txt
+f = open('sum.txt', 'a+')
+#print(type(f))
+f.write('-------------------\n')
+f.write(summary)
+f.write('\n')
+
+f.close
+
+for lines in sentence_list:
+    print(lines)
