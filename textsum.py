@@ -121,4 +121,33 @@ print('The length of the file is:', end=' ')
 print(len(document))
 
 
+# ### 5. Generate a list of sentences in the document
+
+# we want to tokenize the document for further processing
+# tokenizing the sentence means that we are creating a list of all the sentences of the document.
+# Need of tokenizing the document: Initially the document is in just a string format.
+# if we want to process the document, we need to store it in a data structure.
+# Tokenization of document into words is also possible, but we will go with the tokenizing with the sentences
+# Since we want to choose the most relevant sentences, we need to generate tokens of sentences only
+sentences_list = tokenize(document)
+
+# let us print the size of memory used by the list sentences
+print('The size of the list in Bytes is: {}'.format(sys.getsizeof(sentences_list)))
+
+# the size of one of the element of the list
+print('The size of the item 0 in Bytes is: {}'.format(sys.getsizeof(sentences_list[0])))
+
+
+# let us see the data type of sentences_list
+# It will be list
+print(type(sentences_list))
+
+# let us analyse the elements of the sentences
+# len() method applies on the list and provides the number of elements in the list
+print('The size of the list "sentences" is: {}'.format(len(sentences_list)))
+
+# print the elements of the list
+# If the input document is long, which on realistically will be wrong, we would not like to print the entire document
+for i in sentences_list:
+    print(i)
 
