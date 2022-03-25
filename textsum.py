@@ -151,3 +151,39 @@ print('The size of the list "sentences" is: {}'.format(len(sentences_list)))
 for i in sentences_list:
     print(i)
 
+
+# ### 6. Generate term-document matrix (TD matrix) of the data 
+
+# Convert a collection of text documents to a matrix of token counts
+# fit_transform method of CountVectorizer() class 
+# Learn the vocabulary dictionary and return term-document matrix. 
+# I/p: An iterable which yields either str, unicode or file objects.
+# O/p: The term-document matrix named cv_matrix
+cv = CountVectorizer()
+cv_matrix = cv.fit_transform(sentences_list)
+
+
+# a demo of what CountVectorizer().fit_transform(text) does
+cv_demo = CountVectorizer() # a demo object of class CountVectorizer
+
+# printing the cv_matrix type
+# and how it is being stored in memory?
+# it is stored in the compressed row format
+# compressed row format: 
+print('The data type of bow matrix {}'.format(type(cv_matrix)))
+print('Shape of the matrix {}'.format(cv_matrix.get_shape))
+print('Size of the matrix is: {}'.format(sys.getsizeof(cv_matrix)))
+print(cv.get_feature_names())
+print(cv_matrix.toarray())
+
+# Tnormalized: document-term matrix normalized (value 0-1) according to the TF-IDF
+# TF(Term Frequency): the no. of times a term(a word here) appears in the current document(single sentence here)
+# IDF(Inverse Document Frequency): the no. of times a term(a word here) appears in the entire corpus
+# Corpus: set of all sentences
+
+normal_matrix = TfidfTransformer().fit_transform(cv_matrix)
+print(normal_matrix.toarray())
+
+print(normal_matrix.T.toarray)
+res_graph = normal_matrix * normal_matrix.T
+# plt.spy(res_graph)
