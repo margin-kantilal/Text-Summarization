@@ -113,5 +113,12 @@ def tokenize(document):
     sentences_list = doc_tokenizer.tokenize(document)
     return sentences_list
 
+# ### 4. Read the document
+# reading a file and 
+# printing the size of the file
+document = readDoc()
+print('The length of the file is:', end=' ')
+print(len(document))
+
 
 
