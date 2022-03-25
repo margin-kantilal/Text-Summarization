@@ -205,3 +205,16 @@ print('Number of vertices {}'.format(nx_graph.number_of_nodes()))
 # plt.show()
 print('The memory used by the graph in Bytes is: {}'.format(sys.getsizeof(nx_graph)))
 
+
+# ### 8. Getting the rank of every sentence using pagerank
+
+# ranks is a dictionary with key=node(sentences) and value=textrank (the rank of each of the sentences)
+ranks = nx.pagerank(nx_graph)
+
+# analyse the data type of ranks
+print(type(ranks))
+print('The size used by the dictionary in Bytes is: {}'.format(sys.getsizeof(ranks)))
+
+# print the dictionary
+for i in ranks:
+    print(i, ranks[i])
