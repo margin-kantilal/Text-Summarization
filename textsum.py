@@ -187,3 +187,21 @@ print(normal_matrix.toarray())
 print(normal_matrix.T.toarray)
 res_graph = normal_matrix * normal_matrix.T
 # plt.spy(res_graph)
+
+
+# ### 7. Generate a graph for the document to apply PageRank algorithm  
+
+# drawing a graph to proceed for the textrank algorithm
+# nx_graph is a graph developed using the networkx library
+# each node represents a sentence
+# an edge represents that they have words in common
+# the edge weight is the number of words that are common in both of the sentences(nodes)
+# nx.draw() method is used to draw the graph created
+
+nx_graph = nx.from_scipy_sparse_matrix(res_graph)
+nx.draw_circular(nx_graph)
+print('Number of edges {}'.format(nx_graph.number_of_edges()))
+print('Number of vertices {}'.format(nx_graph.number_of_nodes()))
+# plt.show()
+print('The memory used by the graph in Bytes is: {}'.format(sys.getsizeof(nx_graph)))
+
