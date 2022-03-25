@@ -218,3 +218,63 @@ print('The size used by the dictionary in Bytes is: {}'.format(sys.getsizeof(ran
 # print the dictionary
 for i in ranks:
     print(i, ranks[i])
+
+
+# ### 9. Finding important sentences and generating summary
+
+# enumerate method: returns an enumerate object
+# Use of list Comprehensions
+# O/p: sentence_array is the sorted(descending order w.r.t. score value) 2-d array of ranks[sentence] and sentence 
+# For example, if there are two sentences: S1 (with a score of S1 = s1) and S2 with score s2, with s2>s1
+# then sentence_array is [[s2, S2], [s1, S1]]
+sentence_array = sorted(((ranks[i], s) for i, s in enumerate(sentences_list)), reverse=True)
+sentence_array = np.asarray(sentence_array)
+
+# as sentence_array is in descending order wrt score value
+# fmax is the largest score value(the score of first element)
+# fmin is the smallest score value(the score of last element)
+
+rank_max = float(sentence_array[0][0])
+rank_min = float(sentence_array[len(sentence_array) - 1][0])
+
+# print the largest and smallest value of scores of the sentence
+print(rank_max)
+print(rank_min)
+
+# Normalization of the scores
+# so that it comes out in the range 0-1
+# fmax becomes 1
+# fmin becomes 0
+# store the normalized values in the list temp_array
+
+temp_array = []
+
+# if all sentences have equal ranks, means they are all the same
+# taking any sentence will give the summary, say the first sentence
+flag = 0
+if rank_max - rank_min == 0:
+    temp_array.append(0)
+    flag = 1
+
+# If the sentence has different ranks
+if flag != 1:
+    for i in range(0, len(sentence_array)):
+        temp_array.append((float(sentence_array[i][0]) - rank_min) / (rank_max - rank_min))
+
+print(len(temp_array))
+
+# Calculation of threshold:
+# We take the mean value of normalized scores
+# any sentence with the normalized score 0.2 more than the mean value is considered to be 
+threshold = (sum(temp_array) / len(temp_array)) + 0.2
+
+# Separate out the sentences that satiasfy the criteria of having a score above the threshold
+sentence_list = []
+if len(temp_array) > 1:
+    for i in range(0, len(temp_array)):
+        if temp_array[i] > threshold:
+                sentence_list.append(sentence_array[i][1])
+else:
+    sentence_list.append(sentence_array[0][1])
+
+model = sentence_list
